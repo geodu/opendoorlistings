@@ -2,7 +2,12 @@ var express = require('express');
 var app = express();
 
 var mongoose = require('mongoose');
-var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/opendoor';
+var connectionString;
+if (process.env.OPENSHIFT_MONGODB_DB_URL) {
+   connectionString = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
+} else {
+   connectionString = 'mongodb://localhost/opendoor';
+}
 mongoose.connect(connectionString);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
