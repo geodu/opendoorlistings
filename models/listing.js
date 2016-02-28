@@ -36,7 +36,10 @@ listingSchema.statics.getListings = function(query, callback) {
         mongoQuery['bathrooms'] = extractRangeQuery(query['min_bath'], query['max_bath']);
     }
     Listing.find(mongoQuery, '-_id').lean().exec(function(err, listings) {
-        if (err) return console.error(err);
+        if (err) {
+            callback(err);
+            return console.error(err);
+        }
         var json = geojson.parse(listings, {Point: ['lat', 'lng']});
         callback(json);
     });

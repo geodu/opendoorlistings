@@ -38,6 +38,7 @@ The expected response is a GeoJSON FeatureCollection of listings:
 ```
 
 Potential improvements:
-- input validation
-- pagination
+- Better error handling
+- pagination (with sort-by feature)
+- filter by region
 - add/update/remove listings with api key
